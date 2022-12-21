@@ -5,9 +5,9 @@ namespace EFCore_Learning;
 
 public partial class User
 {
-    public long Id { get; set; }
+    public int Id { get; set; }
 
     public string? Name { get; set; }
 
-    public long Age { get; set; }
+    public int Age { get; set; }
 }
