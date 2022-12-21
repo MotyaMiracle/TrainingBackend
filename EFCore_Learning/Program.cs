@@ -1,22 +1,30 @@
-﻿namespace EFCore_Learning
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+
+namespace EFCore_Learning
 {
     public class Program
     {
         static void Main(string[] args)
         {
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                // создаем два объекта
-                User tom = new User { Name = "Tom", Age = 33 };
-                User alice = new User { Name = "Alice", Age = 26 };
-                
-                // добавляем объекты в бд
-                db.Users.Add(tom);
-                db.Users.Add(alice);
-                db.SaveChanges();
-                Console.WriteLine("Данные успешно добавлены");
+            
+            var builder = new ConfigurationBuilder();
+            // Установка пути к текущему каталогу
+            builder.SetBasePath(Directory.GetCurrentDirectory());
+            // Получение конфигурации из файла appsettings.json
+            builder.AddJsonFile("appsettings.json");
+            // Создаем конфигурации
+            var config = builder.Build();
+            // Получаем строку подключения
+            string connectionString = config.GetConnectionString("DefaultConnection")!;
+            
+            var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
 
-                // получаем данные из бд
+            var options = optionsBuilder.UseSqlite(connectionString).Options; // Либо в connectionString закинуть прямую ссылку на файл.db
+
+            using (ApplicationContext db = new ApplicationContext(options)) //В параметры закинуть connectionString или options
+            {
+                Console.WriteLine("Пользователи:");
                 var users = db.Users.ToList();
                 foreach (User u in users)
                 {
