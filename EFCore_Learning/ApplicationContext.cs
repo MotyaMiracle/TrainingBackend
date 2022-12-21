@@ -9,7 +9,7 @@ namespace EFCore_Learning
 {
     public  class ApplicationContext : DbContext
     {
-        public DbSet<User> Users => Set<User> ();
+        public DbSet<User> Users { get; set; } = null!;
 
         public ApplicationContext() => Database.EnsureCreated();
 
