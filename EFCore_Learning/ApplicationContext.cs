@@ -9,9 +9,14 @@ namespace EFCore_Learning
 {
     public  class ApplicationContext : DbContext
     {
-        public DbSet<User> Users => Set<User> ();
+        public DbSet<User> Users { get; set; } = null!;
 
-        public ApplicationContext() => Database.EnsureCreated();
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) 
+                : base(options) { }
+        /*public ApplicationContext()
+        { 
+            //Database.EnsureCreated();
+        }*/
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

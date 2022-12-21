@@ -1,10 +1,27 @@
-﻿namespace EFCore_Learning
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+
+namespace EFCore_Learning
 {
     public class Program
     {
         static void Main(string[] args)
         {
-            using (ApplicationContext db = new ApplicationContext())
+            var builder = new ConfigurationBuilder();
+            builder.SetBasePath(Directory.GetCurrentDirectory());
+            builder.AddJsonFile("appsetting.json");
+            var config = builder.Build();
+            string connectionString = config.GetConnectionString("DefaultConnection")!;
+
+            var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
+            var options = optionsBuilder.UseSqlite(connectionString).Options;
+
+            /*using (ApplicationContext db = new ApplicationContext())
+            {
+                db.Database.Migrate(); // Миграция, нельзя испольозовать в связке Database.EnsureCreate
+            }*/
+
+            using (ApplicationContext db = new ApplicationContext(options))
             {
                 // создаем два объекта
                 User tom = new User { Name = "Tom", Age = 33 };
