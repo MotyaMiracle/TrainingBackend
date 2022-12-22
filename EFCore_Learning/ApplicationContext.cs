@@ -9,13 +9,11 @@ namespace EFCore_Learning
 {
     public  class ApplicationContext : DbContext
     {
-        public DbSet<User> Users => Set<User> ();
-
-        public ApplicationContext() => Database.EnsureCreated();
+        public DbSet<User> Users { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source = helloapp.db");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=helloappdb;Trusted_Connection=True");
         }
     }
 }
