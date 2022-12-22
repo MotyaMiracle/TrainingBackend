@@ -1,27 +1,31 @@
-﻿namespace EFCore_Learning
+﻿
+namespace EFCore_Learning
 {
     public class Program
     {
         static void Main(string[] args)
         {
-            using (ApplicationContext db = new ApplicationContext())
+           // Добавление данных
+           using(ApplicationContext db = new ApplicationContext())
             {
-                // создаем два объекта
-                User tom = new User { Name = "Tom", Age = 33 };
-                User alice = new User { Name = "Alice", Age = 26 };
                 
-                // добавляем объекты в бд
-                db.Users.Add(tom);
-                db.Users.Add(alice);
-                db.SaveChanges();
-                Console.WriteLine("Данные успешно добавлены");
+                User user1 = new User { Name = "Tom", Age = 33 };
+                User user2 = new User { Name = "Alice", Age = 26 };
 
-                // получаем данные из бд
+                db.Users.AddRange(user1, user2);
+                db.SaveChanges();
+            }
+           
+           // Получение данных
+           using(ApplicationContext db = new ApplicationContext())
+            {
                 var users = db.Users.ToList();
+                Console.WriteLine("User list:");
                 foreach (User u in users)
                 {
                     Console.WriteLine($"{u.Id}.{u.Name} - {u.Age}");
                 }
+                
             }
         }
     }
