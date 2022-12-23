@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EFCore_Learning
 {
-    public class User
+    [NotMapped] // Аннотация для исключения сущности из модели
+    public class Company
     {
         public int Id { get; set; }
         public string? Name { get; set; }
-        public int Age { get; set; }
-        // Навигационное свойство
-        public Company? Company { get; set; }
     }
 }
