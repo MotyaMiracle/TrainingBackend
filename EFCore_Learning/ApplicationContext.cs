@@ -11,13 +11,13 @@ namespace EFCore_Learning
     {
         public DbSet<User> Users { get; set; } = null!;
 
-        public ApplicationContext()
+        /*public ApplicationContext()
         {
-            Database.EnsureCreated();
-        }
+           //Database.EnsureCreated();
+        }*/
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=usersdb;Username=postgres;Password=322228");
+            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=usersdb2;Username=postgres;Password=322228");
         }
     }
 }
