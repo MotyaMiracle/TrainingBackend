@@ -7,20 +7,20 @@
             using (ApplicationContext db = new ApplicationContext())
             {
                 // создаем два объекта
-                User tom = new User { Name = "Tom", Age = 33 };
-                User alice = new User { Name = "Alice", Age = 26 };
+                User bob = new User("Bob", 30);
+                User kate = new User("Kate", 29);
                 
                 // добавляем объекты в бд
-                db.Users.Add(tom);
-                db.Users.Add(alice);
+                db.Users.Add(bob);
+                db.Users.Add(kate);
                 db.SaveChanges();
                 Console.WriteLine("Данные успешно добавлены");
 
                 // получаем данные из бд
                 var users = db.Users.ToList();
-                foreach (User u in users)
+                foreach (User user in users)
                 {
-                    Console.WriteLine($"{u.Id}.{u.Name} - {u.Age}");
+                    user.Print();
                 }
             }
         }

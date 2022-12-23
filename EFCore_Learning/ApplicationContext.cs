@@ -20,6 +20,12 @@ namespace EFCore_Learning
         {
             optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=userdb;Username=postgres;Password=322228");
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().Property("Id").HasField("id");
+            modelBuilder.Entity<User>().Property("Age").HasField("age");
+            modelBuilder.Entity<User>().Property("name");
+        }
         
     }
 }
