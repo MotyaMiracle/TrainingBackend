@@ -23,6 +23,7 @@ namespace EFCore_Learning
         {
             Name = name;
             Age = age;
+            Console.WriteLine($"Вызов конструктора для объекта {name}");
         }
     }
 }
