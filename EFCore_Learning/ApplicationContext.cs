@@ -13,8 +13,7 @@ namespace EFCore_Learning
 
         public ApplicationContext() 
         {
-            Database.EnsureDeleted();
-            Database.EnsureCreated();
+            
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
