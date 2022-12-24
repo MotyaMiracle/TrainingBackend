@@ -25,7 +25,7 @@ namespace EFCore_Learning
             //modelBuilder.Entity<User>().ToTable("People");
             //schema можно определить схему, к которой будет принадлежать таблица
             //modelBuilder.Entity<User>().ToTable("People", schema: "userstore");
-            modelBuilder.Entity<User>().Property(u => u.Id).HasColumnName("user_id");
+            //modelBuilder.Entity<User>().Property(u => u.Id).HasColumnName("user_id");
         }
         
     }

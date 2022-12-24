@@ -10,7 +10,7 @@ namespace EFCore_Learning
     [Table("Person")] // Через аннотацию
     public class User
     {
-        //[Column("user_id")]
+        [Column("user_id")]
         public int Id { get; set; }
         public string? Name { get; set; }
         public int Age { get; set; }
