@@ -6,22 +6,22 @@
         {
             using (ApplicationContext db = new ApplicationContext())
             {
-                // создаем два объекта
-                User tom = new User { Name = "Tom", Age = 33 };
-                User alice = new User { Name = "Alice", Age = 26 };
-                
-                // добавляем объекты в бд
-                db.Users.Add(tom);
-                db.Users.Add(alice);
-                db.SaveChanges();
-                Console.WriteLine("Данные успешно добавлены");
+                Company company1 = new Company { Name = "Microsoft" };
+                Company company2 = new Company { Name= "Google" };
 
-                // получаем данные из бд
-                var users = db.Users.ToList();
-                foreach (User u in users)
+                User user1 = new User { Name = "Tom", Company = company2 };
+                User user2 = new User { Name ="Alice", CompanyName = "Microsoft"};
+                User user3 = new User { Name = "Sam", CompanyName = company1.Name };
+
+                db.Companies.AddRange(company1, company1);
+                db.Users.AddRange(user1, user2, user3);
+                db.SaveChanges();
+
+                foreach (var user in db.Users.ToList())
                 {
-                    Console.WriteLine($"{u.Id}.{u.Name} - {u.Age}");
+                    Console.WriteLine($"{user.Name} работает в {user.Company?.Name}");
                 }
+
             }
         }
     }

@@ -10,6 +10,8 @@ namespace EFCore_Learning
     public  class ApplicationContext : DbContext
     {
         public DbSet<User> Users { get; set; } = null!;
+        public DbSet<Company> Companies { get; set; } = null!;
+
 
         public ApplicationContext() 
         {
@@ -20,6 +22,18 @@ namespace EFCore_Learning
         {
             optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=userdb;Username=postgres;Password=322228");
         }
-        
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //Настройка внешнего ключа FluentAPI
+            //modelBuilder.Entity<User>()
+            //    .HasOne(u => u.Company)
+            //    .WithMany(c => c.Users)
+            //    .HasForeignKey(u => u.CompanyInfoKey);
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.Company)
+                .WithMany(c => c.Users)
+                .HasForeignKey(u => u.CompanyName)
+                .HasPrincipalKey(c => c.Name);
+        }
     }
 }
