@@ -10,6 +10,7 @@ namespace EFCore_Learning
     public  class ApplicationContext : DbContext
     {
         public DbSet<User> Users { get; set; } = null!;
+        public DbSet<Company> Companies { get; set; } = null!;
 
         public ApplicationContext() 
         {
@@ -19,6 +20,16 @@ namespace EFCore_Learning
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=userdb;Username=postgres;Password=322228");
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.Company)
+                .WithMany(c => c.Users)
+                .OnDelete(DeleteBehavior.Cascade);
+            //Cascade: зависимая сущность удаляется вместе с главной
+            //SetNull: свойство-внешний ключ в зависимой сущности получает значение null
+            //Restrict: зависимая сущность никак не изменяется при удалении главной сущности
         }
         
     }
