@@ -49,9 +49,9 @@ namespace EFCore_Learning
             using (ApplicationContext db = new ApplicationContext())
             {
                 var users = db.Users
-                    .Include(u => u.Company!.Country!.Capital) //Можно так вместо .ThenInclude
-                        //.ThenInclude(comp => comp!.Country) // Можно было заменить на .Include(u => u.Company!.Country!.Capital)
-                        //    .ThenInclude(coun => coun!.Capital)// к компаниям подгружаем данные по странам
+                    .Include(u => u.Company) //Можно так вместо .ThenInclude
+                        .ThenInclude(comp => comp!.Country) // Можно было заменить на .Include(u => u.Company!.Country!.Capital)
+                            .ThenInclude(coun => coun!.Capital)// к компаниям подгружаем данные по странам
                     .Include(u => u.Position)
                     .ToList();
                 foreach(var user in users)
