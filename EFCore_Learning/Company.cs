@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace EFCore_Learning
 {
-    public class User
+    public class Company
     {
         public int Id { get; set; }
         public string? Name { get; set; }
-        
-        public int? CompanyId { get; set; }
-        public virtual Company? Company { get; set; }
+        public virtual List<User> Users { get; set; } = new();
     }
 }
