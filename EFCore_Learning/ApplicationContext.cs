@@ -9,12 +9,11 @@ namespace EFCore_Learning
 {
     public  class ApplicationContext : DbContext
     {
-        public DbSet<User> Users { get; set; } = null!;
+        public DbSet<MenuItem> MenuItems { get; set; } = null!;
 
         public ApplicationContext() 
         {
-            Database.EnsureDeleted();
-            Database.EnsureCreated();
+            
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
