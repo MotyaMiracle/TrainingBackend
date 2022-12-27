@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace EFCore_Learning
 {
-    public class User
+    public class Student
     {
         public int Id { get; set; }
         public string? Name { get; set; }
-        public int Age { get; set; }
+        public List<Course> Courses { get; set; } = new();
+        public List<Enrollments> Enrollments { get; set; } = new();
     }
 }
