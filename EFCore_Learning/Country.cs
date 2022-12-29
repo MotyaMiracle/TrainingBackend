@@ -6,13 +6,9 @@ using System.Threading.Tasks;
 
 namespace EFCore_Learning
 {
-    public class User
+    public class Country
     {
         public int Id { get; set; }
         public string? Name { get; set; }
-        public int Age { get; set; }
-
-        public int CompanyId { get; set; }
-        public Company? Company { get; set; }
     }
 }
