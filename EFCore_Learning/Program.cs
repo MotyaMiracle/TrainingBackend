@@ -1,4 +1,6 @@
-﻿namespace EFCore_Learning
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace EFCore_Learning
 {
     public class Program
     {
@@ -6,22 +8,17 @@
         {
             using (ApplicationContext db = new ApplicationContext())
             {
-                // создаем два объекта
-                User tom = new User { Name = "Tom", Age = 33 };
-                User alice = new User { Name = "Alice", Age = 26 };
-                
-                // добавляем объекты в бд
-                db.Users.Add(tom);
-                db.Users.Add(alice);
-                db.SaveChanges();
-                Console.WriteLine("Данные успешно добавлены");
-
-                // получаем данные из бд
-                var users = db.Users.ToList();
-                foreach (User u in users)
+                var user1 = db.Users.FirstOrDefault();
+                var user2 = db.Users.AsNoTracking().FirstOrDefault();
+                if (user1 != null && user2 != null)
                 {
-                    Console.WriteLine($"{u.Id}.{u.Name} - {u.Age}");
+                    Console.WriteLine($"Before User1: {user1.Name} User2: {user2.Name}");
+
+                    user1.Name = "Bob";
+
+                    Console.WriteLine($"After User1: {user1.Name} User2: {user2.Name}");
                 }
+
             }
         }
     }
