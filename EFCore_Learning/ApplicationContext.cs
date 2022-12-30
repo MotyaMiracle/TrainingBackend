@@ -13,8 +13,7 @@ namespace EFCore_Learning
 
         public ApplicationContext() 
         {
-            Database.EnsureDeleted();
-            Database.EnsureCreated();
+            //ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking; // Отключение отслеживания на уровне конструктора
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
