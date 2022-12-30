@@ -6,21 +6,26 @@
         {
             using (ApplicationContext db = new ApplicationContext())
             {
-                // создаем два объекта
-                User tom = new User { Name = "Tom", Age = 33 };
-                User alice = new User { Name = "Alice", Age = 26 };
+                IEnumerable<User> userIEnum = db.Users;
+                var users = userIEnum.Where(p => p.Id < 10).ToList();
                 
-                // добавляем объекты в бд
-                db.Users.Add(tom);
-                db.Users.Add(alice);
-                db.SaveChanges();
-                Console.WriteLine("Данные успешно добавлены");
-
-                // получаем данные из бд
-                var users = db.Users.ToList();
-                foreach (User u in users)
+                foreach(var user in users)
                 {
-                    Console.WriteLine($"{u.Id}.{u.Name} - {u.Age}");
+                    Console.WriteLine(user.Name);
+                }
+            }
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                IQueryable<User> userIQuer = db.Users;
+                //var users = userIEnum.Where(p => p.Id < 10).ToList(); // Можно так
+                userIQuer = userIQuer.Where(p => p.Id < 10);
+                userIQuer = userIQuer.Where(p => p.Name == "Tom");
+                var users = userIQuer.ToList();
+
+
+                foreach (var user in users)
+                {
+                    Console.WriteLine(user.Name);
                 }
             }
         }
